@@ -14,6 +14,7 @@
 
     <div class="content-container">
         <div class="add-Expence">
+            <form id="expenseForm"> 
             <h3>Add expences</h3>
             <label>
                 <p>Recipient
@@ -42,7 +43,13 @@
                 <p>Sum:</p>
                 <input type="number" min="1" max="100" name="number">
             </label><br>
+            <p>Reccuring payment?</p>
+            <label><input type="radio" name="Recurring" value="Monthly"> Monthly</label>
+            <label><input type="radio" name="Recurring" value="NoRecurrent"> No</label>
+            <label><input type="radio" name="Recurring" value="YesRecurrent"> Yes</label>
+            <br>
             <input type="submit" value="Add outgoing!">
+        </form>
         </div>
 
         <div class="added-Expences">

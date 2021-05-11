@@ -53,6 +53,30 @@ const GetPayees = () => {
     })
   }
   
+  // Add expence -------------------------------------------------------
+
+
+  expenseForm.onsubmit = (e) => {
+    e.preventDefault()
+    console.log(e)
+    debugger
+    let requestObject = {
+      PayeeID: e.target[0].value,
+      ExpenseCategoriesID: e.target[1].value,       
+      Date: e.target[2].value,
+      Amount: e.target[3].value,
+      Recurring: {RecurringExpenses: e.target[4].value}
+    }
+    
+    fetch('https://localhost:44337/api/Expense', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(requestObject)
+    })
+    .then(console.log(`Payee; ${e.target[0].value} Category ${e.target[1].value} Date ${e.target[2].value} Amount ${e.target[3].value} Recurring ${e.target[4].value}`))
+    }
 
   // MODAL -------------------------------------------------------
 
