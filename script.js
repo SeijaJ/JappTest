@@ -1,3 +1,5 @@
+let value;
+
 const GetPayees = () => {
     fetch('https://localhost:44337/api/Payee')      
     .then((respons) => { return respons.json() })            
@@ -58,14 +60,20 @@ const GetPayees = () => {
 
   expenseForm.onsubmit = (e) => {
     e.preventDefault()
-    console.log(e)
+    let recurring = document.getElementsByClassName("recurring")
     debugger
+    for (var i = 0; i < recurring.length - 1; i++){
+      if (recurring[i].checked == true){
+        value = recurring[i].value;
+        console.log(value);
+      }
+    }
     let requestObject = {
       PayeeID: e.target[0].value,
       ExpenseCategoriesID: e.target[1].value,       
       Date: e.target[2].value,
       Amount: e.target[3].value,
-      Recurring: {RecurringExpenses: e.target[4].value}
+      Recurring: { RecurringExpenses: value }
     }
     
     fetch('https://localhost:44337/api/Expense', {
@@ -75,7 +83,7 @@ const GetPayees = () => {
         },
         body: JSON.stringify(requestObject)
     })
-    .then(console.log(`Payee; ${e.target[0].value} Category ${e.target[1].value} Date ${e.target[2].value} Amount ${e.target[3].value} Recurring ${e.target[4].value}`))
+    .then(console.log(`Payee; ${e.target[0].value} Category ${e.target[1].value} Date ${e.target[2].value} Amount ${e.target[3].value} Recurring ${value}`))
     }
 
   // MODAL -------------------------------------------------------
