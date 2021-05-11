@@ -1,0 +1,70 @@
+ .content-container {
+     border: green 1px solid;
+     display: flex;
+     flex-flow: row wrap;
+     align-content: space-evenly;
+
+ }
+ 
+ .add-Expence{
+     border: red 1px solid;
+ }
+
+ .added-Expences{
+     border: blue 1px solid;
+ }
+ 
+ .expences-table{
+     border: magenta 1px solid;
+ }
+ 
+ 
+ 
+ 
+ /* The Modal (background) */
+
+
+
+ .modal {
+    display: none; /* dold från start*/
+    width: 500px;
+    max-width: 100%; /*för bättre resultat på mindre skärm*/
+    height: 200px;
+    max-height: 100%;
+    position: fixed;
+    left: 50%;
+    top: 50%;
+    margin: -200px 0 0 -200px;
+    background: white;
+    box-shadow: 0 0 60px 10px rgba(0, 0, 0, 0.9);
+    }
+  
+  
+    
+    /* Modal styling */
+  
+    .modal-content {
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      width: 100%;
+      height: 100%;
+      overflow: auto;
+      padding: 20px 50px 20px 20px;
+    }
+    
+    /* Stäng av */
+    .close {
+      color: #aaaaaa;
+      float: right;
+      font-size: 28px;
+      font-weight: bold;
+    }
+    
+    .close:hover,
+    .close:focus {
+      color: #000;
+      text-decoration: none;
+      cursor: pointer;
+    }

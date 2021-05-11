@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://kit.fontawesome.com/854810a797.js" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="styles.css">
+    <title>Document</title>
+</head>
+
+<body>
+
+    <div class="content-container">
+        <div class="add-Expence">
+            <h3>Add expences</h3>
+            <label>
+                <p>Recipient
+                    :<span id="myBtn"><i class="fas fa-plus-circle"></i></span></p>
+                <select name="Payee" id="Payees">
+
+                </select>
+            </label>
+            <label>
+                <p>Category:</p>
+                <select name="ExpenseCategory">
+                    <option value="">--Category--</option>
+                    <option>Boende</option>
+                    <option>Mat & Förbrukning</option>
+                    <option>Avgifter & Försäkringar</option>
+                    <option>Transport</option>
+                    <option>Nöjen</option>
+                    <option>Övrigt</option>
+                </select>
+            </label>
+            <label>
+                <p>Date:</p>
+                <input type="date" name="number">
+            </label>
+            <label>
+                <p>Sum:</p>
+                <input type="number" min="1" max="100" name="number">
+            </label><br>
+            <input type="submit" value="Add outgoing!">
+        </div>
+
+        <div class="added-Expences">
+            <h3>Added expences:</h3>
+
+            <div class="expences-table">
+
+            </div>
+        </div>
+
+
+
+
+    </div>
+
+    <div id="myModal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h3>Add new recipient</h3>
+            <hr>
+            <form id="payeeForm">
+                <label>New Recipient:
+                    <input placeholder="Name" type="text" name="Payee" id="name" required>
+                </label>
+                <input type="submit" value="Add">
+            </form>
+            <div id="payeeResult"> </div>
+        </div>
+
+    </div>
+
+    <script src="script.js"></script>
+</body>
+
+</html>
