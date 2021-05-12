@@ -26,13 +26,13 @@
             <label>
                 <p>Category:</p>
                 <select name="ExpenseCategory">
-                    <option value="">--Category--</option>
-                    <option>Boende</option>
-                    <option>Mat & Förbrukning</option>
-                    <option>Avgifter & Försäkringar</option>
-                    <option>Transport</option>
-                    <option>Nöjen</option>
-                    <option>Övrigt</option>
+                    <option>--Category--</option>
+                    <option value="1">Boende</option>
+                    <option value="2">Mat & Förbrukning</option>
+                    <option value="3">Avgifter & Försäkringar</option>
+                    <option value="4">Transport</option>
+                    <option value="5">Nöjen</option>
+                    <option value="6">Övrigt</option>
                 </select>
             </label>
             <label>
@@ -41,12 +41,12 @@
             </label>
             <label>
                 <p>Sum:</p>
-                <input type="number" min="1" max="100" name="number">
+                <input type="number" name="number">
             </label><br>
             <p>Reccuring payment?</p>
+            <label><input type="radio" class="recurring" name="Recurring" value="NotRecurring"> No</label>
+            <label><input type="radio" class="recurring" name="Recurring" value="YesRecurring"> Yes</label>
             <label><input type="radio" class="recurring" name="Recurring" value="Monthly"> Monthly</label>
-            <label><input type="radio" class="recurring" name="Recurring" value="NoRecurrent"> No</label>
-            <label><input type="radio" class="recurring" name="Recurring" value="YesRecurrent"> Yes</label>
             <br>
             <input type="submit" value="Add outgoing!">
         </form>
@@ -56,6 +56,21 @@
             <h3>Added expences:</h3>
 
             <div class="expences-table">
+
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Recipient</th>
+                            <th>Category</th>
+                            <th>Date</th>
+                            <th>Sum</th>
+                            <th>Recurring</th>
+                        </tr>
+                    </thead>
+                    <tbody class="expensesTbody">
+    
+                    </tbody>
+                </table>
 
             </div>
         </div>

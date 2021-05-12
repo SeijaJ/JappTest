@@ -61,8 +61,8 @@ const GetPayees = () => {
   expenseForm.onsubmit = (e) => {
     e.preventDefault()
     let recurring = document.getElementsByClassName("recurring")
-    debugger
-    for (var i = 0; i < recurring.length - 1; i++){
+
+    for (var i = 0; i < recurring.length; i++){
       if (recurring[i].checked == true){
         value = recurring[i].value;
         console.log(value);
