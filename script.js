@@ -58,33 +58,69 @@ const GetPayees = () => {
   // Add expence -------------------------------------------------------
 
 
-  expenseForm.onsubmit = (e) => {
-    e.preventDefault()
-    let recurring = document.getElementsByClassName("recurring")
-    debugger
-    for (var i = 0; i < recurring.length; i++){
-      if (recurring[i].checked == true){
-        value = recurring[i].value;
-        console.log(value);
-      }
-    }
-    let requestObject = {
-      PayeeID: e.target[0].value,
-      ExpenseCategoriesID: e.target[1].value,       
-      Date: e.target[2].value,
-      Amount: e.target[3].value,
-      Recurring: { RecurringExpenses: value }
-    }
+  // expenseForm.onsubmit = (e) => {
+  //   e.preventDefault()
+  //   let recurring = document.getElementsByClassName("recurring")
+
+  //   for (var i = 0; i < recurring.length; i++){
+  //     if (recurring[i].checked == true){
+  //       value = recurring[i].value;
+  //       console.log(value);
+  //     }
+  //   }
+  //   let requestObject = {
+  //     PayeeID: e.target[0].value,
+  //     ExpenseCategoriesID: e.target[1].value,       
+  //     Date: e.target[2].value,
+  //     Amount: e.target[3].value,
+  //     Recurring: { RecurringExpenses: value }
+  //   }
     
-    fetch('https://localhost:44337/api/Expense', {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(requestObject)
-    })
-    .then(console.log(`Payee; ${e.target[0].value} Category ${e.target[1].value} Date ${e.target[2].value} Amount ${e.target[3].value} Recurring ${value}`))
+  //   fetch('https://localhost:44337/api/Expense', {
+  //       method: 'POST',
+  //       headers: {
+  //           'Content-Type': 'application/json'
+  //       },
+  //       body: JSON.stringify(requestObject)
+  //   })
+  //   .then(console.log(`Payee; ${e.target[0].value} Category ${e.target[1].value} Date ${e.target[2].value} Amount ${e.target[3].value} Recurring ${value}`))
+  // }
+
+
+
+// Add table ---------------------------------------------------
+
+expenseForm.onsubmit = (e) => {
+  e.preventDefault()
+  let recurring = document.getElementsByClassName("recurring")
+
+  for (let i = 0; i < recurring.length; i++){
+    if (recurring[i].checked == true){
+      value = recurring[i].value;
+      console.log(value);
     }
+  }
+
+  let requestObject = {
+    PayeeID: e.target[0].value,
+    ExpenseCategoriesID: e.target[1].value,       
+    Date: e.target[2].value,
+    Amount: e.target[3].value,
+    Recurring: { RecurringExpenses: value }
+  } // Behöver vi ha med det här när vi populerar tabellen? Räcker det inte med värdena vi sätter i forms?
+
+  debugger
+  let tables = document.getElementById('expensesTbody')
+  let rows = document.createElement('tr')
+  tables.appendChild(rows)
+
+  for(let i = 0; i < Object.keys(requestObject).length; i++)
+    {
+      let cell = document.createElement('td')
+      rows.appendChild(cell)
+    }
+}
+
 
   // MODAL -------------------------------------------------------
 
