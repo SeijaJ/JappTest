@@ -1,4 +1,6 @@
 let value;
+let category;
+let payee;
 
 const GetPayees = () => {
     fetch('https://localhost:44337/api/Payee')      
@@ -10,23 +12,22 @@ const GetPayees = () => {
     .then((data) => {                              
         addPayees(data)
     })
-  }
+}
   
-  GetPayees()
+GetPayees()
   
-  const addPayees = (data) => {
+const addPayees = (data) => {
    
-  let select = document.getElementById('Payees')
+let select = document.getElementById('Payees')
   
-  for (let payee of data){
+for (let payee of data){
   let opt = document.createElement('option')
+  opt.className = "payeeOpts"
   opt.value = payee.ID
   opt.text = payee.Name
   select.appendChild(opt)
   }
-  
-  
-  }
+}
   
   
   // Lägga till
@@ -94,7 +95,8 @@ expenseForm.onsubmit = (e) => {
   e.preventDefault()
   let recurring = document.getElementsByClassName("recurring")
   let categoryOpts = document.getElementsByClassName("categoryOpts")
-  let category;
+  let payeeOpts = document.getElementsByClassName("payeeOpts")
+
 
   // Loopar igenom återkommande och tittar vilken som är i-checkad
   for (let i = 0; i < recurring.length; i++) {
@@ -107,12 +109,19 @@ expenseForm.onsubmit = (e) => {
   // Loopar igenom selecten och tittar vilken option som är selected
   for (let i = 0; i < categoryOpts.length; i++) {
     if (categoryOpts[i].selected == true) {
-      category = categoryOpts[i].textContent
+      category = categoryOpts[i].textContent // Tar texten istället för värdet
+    }
+  }
+
+  // Loopar igenom selecten och tittar vilken option som är selected
+  for (let i = 0; i < payeeOpts.length; i++) {
+    if (payeeOpts[i].selected == true) {
+      payee = payeeOpts[i].textContent // Tar texten istället för värdet
     }
   }
 
   let expenseArray = [
-    e.target[0].value,
+    payee,
     category,       
     e.target[2].value,
     e.target[3].value,
