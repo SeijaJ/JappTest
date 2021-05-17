@@ -93,23 +93,33 @@ const GetPayees = () => {
 expenseForm.onsubmit = (e) => {
   e.preventDefault()
   let recurring = document.getElementsByClassName("recurring")
+  let categoryOpts = document.getElementsByClassName("categoryOpts")
+  let category;
 
-  for (let i = 0; i < recurring.length; i++){
-    if (recurring[i].checked == true){
+  // Loopar igenom återkommande och tittar vilken som är i-checkad
+  for (let i = 0; i < recurring.length; i++) {
+    if (recurring[i].checked == true) {
       value = recurring[i].value;
       console.log(value);
     }
   }
 
+  // Loopar igenom selecten och tittar vilken option som är selected
+  for (let i = 0; i < categoryOpts.length; i++) {
+    if (categoryOpts[i].selected == true) {
+      category = categoryOpts[i].textContent
+    }
+  }
+
   let expenseArray = [
     e.target[0].value,
-    e.target[1].value,       
+    category,       
     e.target[2].value,
     e.target[3].value,
     value
   ]
 
-  debugger
+  // debugger
   let tables = document.getElementById('expensesTbody')
   let rows = document.createElement('tr')
   tables.appendChild(rows)
