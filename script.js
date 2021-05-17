@@ -1,6 +1,4 @@
-let value;
-let category;
-let payee;
+let value, category, payee;
 
 const GetPayees = () => {
     fetch('https://localhost:44337/api/Payee')      
@@ -106,17 +104,17 @@ expenseForm.onsubmit = (e) => {
     }
   }
 
-  // Loopar igenom selecten och tittar vilken option som är selected
+  // Loopar igenom selecten och tittar vilken option som är vald
   for (let i = 0; i < categoryOpts.length; i++) {
     if (categoryOpts[i].selected == true) {
-      category = categoryOpts[i].textContent // Tar texten istället för värdet
+      category = categoryOpts[i].textContent // Tar text istället för värde
     }
   }
 
-  // Loopar igenom selecten och tittar vilken option som är selected
+  // Loopar igenom selecten och tittar vilken option som är vald
   for (let i = 0; i < payeeOpts.length; i++) {
     if (payeeOpts[i].selected == true) {
-      payee = payeeOpts[i].textContent // Tar texten istället för värdet
+      payee = payeeOpts[i].textContent // Tar text istället för värde
     }
   }
 
