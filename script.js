@@ -101,23 +101,24 @@ expenseForm.onsubmit = (e) => {
     }
   }
 
-  let requestObject = {
-    PayeeID: e.target[0].value,
-    ExpenseCategoriesID: e.target[1].value,       
-    Date: e.target[2].value,
-    Amount: e.target[3].value,
-    Recurring: { RecurringExpenses: value }
-  } // Behöver vi ha med det här när vi populerar tabellen? Räcker det inte med värdena vi sätter i forms?
+  let expenseArray = [
+    e.target[0].value,
+    e.target[1].value,       
+    e.target[2].value,
+    e.target[3].value,
+    value
+  ]
 
   debugger
   let tables = document.getElementById('expensesTbody')
   let rows = document.createElement('tr')
   tables.appendChild(rows)
 
-  for(let i = 0; i < Object.keys(requestObject).length; i++)
+  for(let i = 0; i < expenseArray.length; i++)
     {
       let cell = document.createElement('td')
       rows.appendChild(cell)
+      cell.textContent = expenseArray[i]
     }
 }
 
