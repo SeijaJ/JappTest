@@ -131,11 +131,18 @@ expenseForm.onsubmit = (e) => {
   let rows = document.createElement('tr')
   tables.appendChild(rows)
 
-  for(let i = 0; i < expenseArray.length; i++)
-    {
+  
+  for(let i = 0; i < expenseArray.length; i++) {
       let cell = document.createElement('td')
       rows.appendChild(cell)
+      console.log(expenseArray[i])
       cell.textContent = expenseArray[i]
+      // if (expenseArray[i].textContent != "") {
+      //   cell.textContent = expenseArray[i].textContent
+      // }
+      // else {
+      //   cell.textContent = expenseArray[i].value
+      // }
     }
 }
 
