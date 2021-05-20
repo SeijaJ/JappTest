@@ -1,10 +1,17 @@
 let value, category, payee;
 
+let recurring = document.getElementsByClassName("recurring")
+let categoryOpts = document.getElementsByClassName("categoryOpts")
+let payeeOpts = document.getElementsByClassName("payeeOpts")
+let getMonthly = document.getElementsByClassName("getMonthly")
+let tables = document.getElementById('expensesTbody')
+
+
 const GetPayees = () => {
     fetch('https://localhost:44337/api/Payee')      
     .then((respons) => { return respons.json() })            
     .then((data) => {                              
-        console.log(data)
+        // console.log(data)
         return data
     })
     .then((data) => {                              
@@ -48,7 +55,7 @@ for (let payee of data){
       return response
     })
     .then(function(response){
-      console.log(response)
+      // console.log(response)
       let result = document.getElementById('payeeResult')
       result.innerHTML = `<p>${response} har nu sparats</p>`
     })
@@ -56,7 +63,47 @@ for (let payee of data){
   
   // Add expence -------------------------------------------------------
 
+  let GetMonthly = () => {
+      fetch('https://localhost:44337/api/Expense/GetMonthlyExpenses?id=' + 3, { // Hämtar Expenses där Recurring.ID = 3(Monthly) är sant
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json'
+        }
+      }) 
+      .then((response) => { return response.json() })
+      .then((data) => {
+        console.log(data)
+        PopulateTable(data)
+      })
+  }
 
+  // Populerar expensestabellen ---------------------------------------------
+
+  const PopulateTable = (data) => { // Data är listan av objekt som hämtas från backend
+    // debugger
+    for (const object of data) { // Object är enskilda objekt i listan data
+      let rows = document.createElement('tr')
+      tables.appendChild(rows)
+
+      // CreateCell skapar en cell
+      rows.appendChild(CreateCell(object.Payee))
+      rows.appendChild(CreateCell(object.ExpenseCategory))
+      rows.appendChild(CreateCell(object.Date.split("T")[0]))
+      rows.appendChild(CreateCell(object.Amount))
+      rows.appendChild(CreateCell(object.Recurring))
+    }
+  }
+
+  // Lägg till celler --------------------------------------------------
+
+  CreateCell = (data) => {
+    const cell = document.createElement('td')
+    cell.textContent = data
+    return cell
+  }
+
+  // Postar expenses till backend --------------------------------------------------
+  
   // expenseFormPost.onsubmit = (e) => {
   //   e.preventDefault()
   //   let recurring = document.getElementsByClassName("recurring")
@@ -91,16 +138,13 @@ for (let payee of data){
 
 expenseForm.onsubmit = (e) => {
   e.preventDefault()
-  let recurring = document.getElementsByClassName("recurring")
-  let categoryOpts = document.getElementsByClassName("categoryOpts")
-  let payeeOpts = document.getElementsByClassName("payeeOpts")
 
 
   // Loopar igenom återkommande och tittar vilken som är i-checkad
   for (let i = 0; i < recurring.length; i++) {
     if (recurring[i].checked == true) {
       value = recurring[i].value;
-      console.log(value);
+      // console.log(value);
     }
   }
 
@@ -127,22 +171,14 @@ expenseForm.onsubmit = (e) => {
   ]
 
   // debugger
-  let tables = document.getElementById('expensesTbody')
   let rows = document.createElement('tr')
   tables.appendChild(rows)
 
-  
+
   for(let i = 0; i < expenseArray.length; i++) {
       let cell = document.createElement('td')
       rows.appendChild(cell)
-      console.log(expenseArray[i])
       cell.textContent = expenseArray[i]
-      // if (expenseArray[i].textContent != "") {
-      //   cell.textContent = expenseArray[i].textContent
-      // }
-      // else {
-      //   cell.textContent = expenseArray[i].value
-      // }
     }
 }
 
