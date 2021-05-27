@@ -1,10 +1,12 @@
-let value, category, payee;
+let value, category, payee, rows, expenseObjectArray = [];
 
 let recurring = document.getElementsByClassName("recurring")
 let categoryOpts = document.getElementsByClassName("categoryOpts")
 let payeeOpts = document.getElementsByClassName("payeeOpts")
 let getMonthly = document.getElementsByClassName("getMonthly")
-let tables = document.getElementById('expensesTbody')
+let expensesTableBody = document.getElementById('expensesTbody')
+let expensePost = document.getElementsByClassName('expensesPost')
+let expensesTable = document.getElementsByClassName('expenses-table');
 
 
 const GetPayees = () => {
@@ -18,7 +20,7 @@ const GetPayees = () => {
         addPayees(data)
     })
 }
-  
+
 GetPayees()
   
 const addPayees = (data) => {
@@ -63,7 +65,8 @@ for (let payee of data){
   
   // Add expence -------------------------------------------------------
 
-  let GetMonthly = () => {
+  let GetMonthly = (e) => {
+
       fetch('https://localhost:44337/api/Expense/GetMonthlyExpenses?id=' + 3, { // Hämtar Expenses där Recurring.ID = 3(Monthly) är sant
         method: 'GET',
         headers: {
@@ -74,6 +77,9 @@ for (let payee of data){
       .then((data) => {
         console.log(data)
         PopulateTable(data)
+        for (i = 0; i < data.length; i++) {
+          expenseObjectArray.push(data[i]);
+        }
       })
   }
 
@@ -82,8 +88,8 @@ for (let payee of data){
   const PopulateTable = (data) => { // Data är listan av objekt som hämtas från backend
     // debugger
     for (const object of data) { // Object är enskilda objekt i listan data
-      let rows = document.createElement('tr')
-      tables.appendChild(rows)
+      rows = document.createElement('tr')
+      expensesTableBody.appendChild(rows)
 
       // CreateCell skapar en cell
       rows.appendChild(CreateCell(object.Payee))
@@ -104,6 +110,25 @@ for (let payee of data){
 
   // Postar expenses till backend --------------------------------------------------
   
+  expensesPost = () => {
+    debugger
+    fetch('https://localhost:44337/api/Expense', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(expenseObjectArray)
+    }).then((response) => {
+      debugger
+      if (response.ok) {
+        expensesTableBody.childNodes.forEach((child) => {
+          child.remove()
+        })
+      } else {
+        alert("Derp")
+      }
+    })
+  }
   // expenseFormPost.onsubmit = (e) => {
   //   e.preventDefault()
   //   let recurring = document.getElementsByClassName("recurring")
@@ -169,10 +194,18 @@ expenseForm.onsubmit = (e) => {
     e.target[3].value,
     value
   ]
+  let expenseArrayObject = {
+    Payee: expenseArray[0],
+    ExpenseCategory: expenseArray[1],
+    Date: expenseArray[2],
+    Amount: expenseArray[3],
+    Recurring: expenseArray[4]
+  }
+  
 
   // debugger
   let rows = document.createElement('tr')
-  tables.appendChild(rows)
+  expensesTableBody.appendChild(rows)
 
 
   for(let i = 0; i < expenseArray.length; i++) {
@@ -180,6 +213,9 @@ expenseForm.onsubmit = (e) => {
       rows.appendChild(cell)
       cell.textContent = expenseArray[i]
     }
+
+  expenseObjectArray.push(expenseArrayObject);
+  console.log(expenseObjectArray)
 }
 
 

@@ -27,12 +27,12 @@
                 <p>Category:</p>
                 <select name="ExpenseCategory" >
                     <option>--Category--</option>
-                    <option value="1" class="categoryOpts">Boende</option>
-                    <option value="2" class="categoryOpts">Mat & Förbrukning</option>
-                    <option value="3" class="categoryOpts">Avgifter & Försäkringar</option>
-                    <option value="4" class="categoryOpts">Transport</option>
-                    <option value="5" class="categoryOpts">Nöjen</option>
-                    <option value="6" class="categoryOpts">Övrigt</option>
+                    <option value="1" class="categoryOpts">Rent & Living costs</option>
+                    <option value="2" class="categoryOpts">Food & Consumption</option>
+                    <option value="3" class="categoryOpts">Fees & Insurance</option>
+                    <option value="4" class="categoryOpts">Transportation</option>
+                    <option value="5" class="categoryOpts">Entertainment</option>
+                    <option value="6" class="categoryOpts">Miscellaneous</option>
                 </select>
             </label>
             <label>
@@ -56,8 +56,8 @@
             <h3>Added expences:</h3>
             <button class="getMonthly" onclick="GetMonthly()">Monthly Payments</button>
 
-            <div class="expences-table">
-                <table>
+            <div>
+                <table class="expenses-table">
                     <thead>
                         <tr>
                             <th>Recipient</th>
@@ -73,7 +73,7 @@
                 </table>
 
             </div>
-            <button class="expensesPost">Add expenses</button>
+            <button class="expensesPost" onclick="expensesPost()">Add expenses</button>
         </div>
 
 
