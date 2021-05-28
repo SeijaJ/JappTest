@@ -52,11 +52,9 @@ for (let payee of data){
             'Content-Type': 'application/json'
         },
         body: JSON.stringify(requestObject)
-    })
-    .then(function(response){
+    }).then(function(response){
       return response
-    })
-    .then(function(response){
+    }).then(function(response){
       // console.log(response)
       let result = document.getElementById('payeeResult')
       result.innerHTML = `<p>${response} har nu sparats</p>`
@@ -75,10 +73,10 @@ for (let payee of data){
       }) 
       .then((response) => { return response.json() })
       .then((data) => {
-        console.log(data)
+        // console.log(data)
         PopulateTable(data)
         for (i = 0; i < data.length; i++) {
-          expenseObjectArray.push(data[i]);
+          expenseObjectArray.push(data[i]);   // Lägger till utgifterna i en ObjectArray som sedan används när vi skickar till backend
         }
       })
   }
@@ -91,14 +89,14 @@ for (let payee of data){
       rows = document.createElement('tr')
       expensesTableBody.appendChild(rows)
 
-      // CreateCell skapar en cell
+      // CreateCell skapar en cell med textvärdet från object
       rows.appendChild(CreateCell(object.Payee))
       rows.appendChild(CreateCell(object.ExpenseCategory))
       rows.appendChild(CreateCell(object.Date.split("T")[0]))
       rows.appendChild(CreateCell(object.Amount))
       rows.appendChild(CreateCell(object.Recurring))
     }
-  }
+  
 
   // Lägg till celler --------------------------------------------------
 
@@ -119,44 +117,18 @@ for (let payee of data){
         },
         body: JSON.stringify(expenseObjectArray)
     }).then((response) => {
-      debugger
-      if (response.ok) {
-        expensesTableBody.childNodes.forEach((child) => {
-          child.remove()
-        })
+      if (response.ok) {        // Tar bort raden ur listan när posten har gått igenom
+        const length = expensesTableBody.children.length
+        for (i = 0; i < length; i++) {
+          const child = expensesTableBody.children
+          child[0].remove()
+        }
+        expenseObjectArray = [] // Tömmer ObjectArray när posten har gått igenom
       } else {
         alert("Derp")
       }
     })
   }
-  // expenseFormPost.onsubmit = (e) => {
-  //   e.preventDefault()
-  //   let recurring = document.getElementsByClassName("recurring")
-
-  //   for (var i = 0; i < recurring.length; i++){
-  //     if (recurring[i].checked == true){
-  //       value = recurring[i].value;
-  //       console.log(value);
-  //     }
-  //   }
-  //   let requestObject = {
-  //     PayeeID: e.target[0].value,
-  //     ExpenseCategoriesID: e.target[1].value,       
-  //     Date: e.target[2].value,
-  //     Amount: e.target[3].value,
-  //     Recurring: { RecurringExpenses: value }
-  //   }
-    
-  //   fetch('https://localhost:44337/api/Expense', {
-  //       method: 'POST',
-  //       headers: {
-  //           'Content-Type': 'application/json'
-  //       },
-  //       body: JSON.stringify(requestObject)
-  //   })
-  //   .then(console.log(`Payee; ${e.target[0].value} Category ${e.target[1].value} Date ${e.target[2].value} Amount ${e.target[3].value} Recurring ${value}`))
-  // }
-
 
 
 // Add table ---------------------------------------------------
@@ -214,8 +186,7 @@ expenseForm.onsubmit = (e) => {
       cell.textContent = expenseArray[i]
     }
 
-  expenseObjectArray.push(expenseArrayObject);
-  console.log(expenseObjectArray)
+  expenseObjectArray.push(expenseArrayObject); // Lägger till utgiften i en ObjectArray som sedan används när vi skickar till backend
 }
 
 
