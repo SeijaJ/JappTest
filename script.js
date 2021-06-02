@@ -74,28 +74,32 @@ for (let payee of data){
       .then((response) => { return response.json() })
       .then((data) => {
         // console.log(data)
-        PopulateTable(data)
+        expensesTableBody.innerHTML = ""
+        const ids = expenseObjectArray.map(x => x.ID)
         for (i = 0; i < data.length; i++) {
-          expenseObjectArray.push(data[i]);   // Lägger till utgifterna i en ObjectArray som sedan används när vi skickar till backend
+          if (!ids.includes(data[i].ID)) {
+            expenseObjectArray.push(data[i]);   // Lägger till utgifterna i en ObjectArray som sedan används när vi skickar till backend
+          }
         }
+        PopulateTable(expenseObjectArray)
       })
   }
 
   // Populerar expensestabellen ---------------------------------------------
 
   const PopulateTable = (data) => { // Data är listan av objekt som hämtas från backend
-    // debugger
-    for (const object of data) { // Object är enskilda objekt i listan data
+    for (const objects of data) {
       rows = document.createElement('tr')
+      rows.dataset.expenseID = objects.ID
       expensesTableBody.appendChild(rows)
 
-      // CreateCell skapar en cell med textvärdet från object
-      rows.appendChild(CreateCell(object.Payee))
-      rows.appendChild(CreateCell(object.ExpenseCategory))
-      rows.appendChild(CreateCell(object.Date.split("T")[0]))
-      rows.appendChild(CreateCell(object.Amount))
-      rows.appendChild(CreateCell(object.Recurring))
+      rows.appendChild(CreateCell(objects.Payee))
+      rows.appendChild(CreateCell(objects.ExpenseCategory))
+      rows.appendChild(CreateCell(objects.Date.split("T")[0]))
+      rows.appendChild(CreateCell(objects.Amount))
+      rows.appendChild(CreateCell(objects.Recurring))
     }
+  }
   
 
   // Lägg till celler --------------------------------------------------
@@ -141,7 +145,6 @@ expenseForm.onsubmit = (e) => {
   for (let i = 0; i < recurring.length; i++) {
     if (recurring[i].checked == true) {
       value = recurring[i].value;
-      // console.log(value);
     }
   }
 
@@ -174,11 +177,8 @@ expenseForm.onsubmit = (e) => {
     Recurring: expenseArray[4]
   }
   
-
-  // debugger
   let rows = document.createElement('tr')
   expensesTableBody.appendChild(rows)
-
 
   for(let i = 0; i < expenseArray.length; i++) {
       let cell = document.createElement('td')
